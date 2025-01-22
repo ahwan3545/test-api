@@ -13,34 +13,31 @@ class StoreController extends Controller
 
     public function index(Request $request)
     {
-        // $stores = Store::select(['id', 'name', 'image', 'website_url])->get();
-
+        
         $stores = [
             [
                 "id" => 1,
                 "name" => "Amazon",
-                "image" => "https://test-api-production-4d83.up.railway.app/assets/images/stores/amazon.png",
-                "website_url" => "https://www.amazon.com"
+                "image" => "https://test-api-production-4d83.up.railway.app/assets/images/stores/amazon.png"
             ],
             [
                 "id" => 2,
-                "name" => "eBay", 
-                "image" => "https://test-api-production-4d83.up.railway.app/assets/images/stores/eBay.png",
-                "website_url" => "https://www.ebay.com"
+                "name" => "eBay",
+                "image" => "https://test-api-production-4d83.up.railway.app/assets/images/stores/eBay.png"
             ],
             [
                 "id" => 3,
                 "name" => "Walmart",
-                "image" => "https://test-api-production-4d83.up.railway.app/assets/images/stores/walmart.png",
-                "website_url" => "https://www.walmart.com"
+                "image" => "https://test-api-production-4d83.up.railway.app/assets/images/stores/walmart.png"
             ],
             [
                 "id" => 4,
                 "name" => "AliExpress",
-                "image" => "https://test-api-production-4d83.up.railway.app/assets/images/stores/aliexpress.png",
-                "website_url" => "https://www.aliexpress.com"
+                "image" => "https://test-api-production-4d83.up.railway.app/assets/images/stores/aliexpress.png"
             ]
-         ];
+        ];
+
+        $stores = Store::select(['id', 'name', 'image', 'website_url'])->get();
 
         return $this->success($stores, 'Stores retrieved successfully.');
     }
