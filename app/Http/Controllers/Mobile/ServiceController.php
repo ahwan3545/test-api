@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Mobile;
 use App\Http\Controllers\Controller;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
-use App\Models\Store;
+use App\Models\Service;
 
-class StoreController extends Controller
+class ServiceController extends Controller
 {
     use HttpResponses;
 
     public function index(Request $request)
     {
-        $stores = Store::select(['id', 'name', 'image'])->get();
+        $stores = Service::select(['id', 'name', 'image'])->get();
 
-        return $this->success($stores, 'Stores retrieved successfully.');
+        return $this->success($stores, 'Services retrieved successfully.');
     }
 }
