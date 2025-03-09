@@ -17,15 +17,26 @@ class CustomersTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 5; $i++) {
-            $customers[] = [
-                'name' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('123456'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        }
+        $customers = [];
+
+        $customers[] = [
+            'name' => 'test customer',
+            'email' => 'test@email.com',
+            'phone_number' => '0790111522',
+            'password' => Hash::make('12345678'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+        // for ($i = 0; $i < 5; $i++) {
+        //     $customers[] = [
+        //         'name' => $faker->name,
+        //         'email' => $faker->unique()->safeEmail,
+        //         'password' => Hash::make('123456'),
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        //     ];
+        // }
 
         DB::table('customers')->insert($customers);
 

@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Customer extends Model
+class Customer extends Authenticatable implements JWTSubject
 {
     use HasFactory, SoftDeletes;
 
@@ -22,26 +24,37 @@ class Customer extends Model
         'created_from',
     ];
 
-    public function language()
+    protected $hidden = [
+        'password',
+    ];
+
+      /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        return $this->belongsTo(Language::class, 'language_id')->select('id', 'name', 'code', 'dir');
+        return [
+            'password' => 'hashed',
+        ];
     }
 
-    public function details()
+    public function username()
     {
-        return $this->hasOne(CustomerDetail::class, 'customer_id')
-            ->select([
-                'id', 'customer_id', 'gender', 'birth_date', 'address', 'country_id', 'city_id'
-            ]);
+        return 'phone_number';
     }
 
-    public function scopeTableSelect($query)
+
+    public function getJWTIdentifier()
     {
-        $query->select('id', 'name', 'email', 'phone_number');
+        return $this->getKey();
     }
 
-    public function scopeTableRelation($query)
+    public function getJWTCustomClaims()
     {
-        $query->with('details');
+        return [];
     }
+
+    
 }

@@ -12,6 +12,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:customer')->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+});
+
 Route::get('/stores', [StoreController::class, 'index']);
 Route::get('/advertisements', [AdvertisementController::class, 'index']);
 Route::get('/services', [ServiceController::class, 'index']);

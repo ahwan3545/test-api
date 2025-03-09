@@ -17,6 +17,28 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        return $this->success([], 'Logged in Successfully');
+        $credentials = $request->only('phone_number', 'password');
+
+    
+        try {
+            // Use the 'customer' guard
+            if (!$token = auth('customer')->attempt($credentials)) {
+                return $this->error([], 'Invalid credentials', 401);
+            }
+        } catch (JWTException $e) {
+            return $this->error([], 'Could not create token', 500);
+        }
+
+        // $customer = Customer::where('id', 2291)->firstOrFail();
+
+        return $this->success($token, 'Logged in Successfully');
     }
+
+     // Logout customer
+     public function logout()
+     {
+         auth('customer')->logout(true);
+         return $this->success([], 'Successfully logged out');
+     }
+
 }
